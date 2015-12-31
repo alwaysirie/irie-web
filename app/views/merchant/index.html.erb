@@ -1,0 +1,190 @@
+<div id="controllerBox">
+	<div id="logoBox"><img src="/assets/mobile_logoChris.png"></div>
+	<div id="optionBox">
+		<strong>Filter</strong><br>
+		<select id="deal_id" name="deal_id" onchange="changeDeals()">
+			<option value="all" <% if params[:deal_id] == 'all' %>selected="selected"<% end %>>All Deals</option>
+			<option value="active" <% if params[:deal_id] == 'active' %>selected="selected"<% end %>>Active Deals</option>
+			<option value="deactive" <% if params[:deal_id] == 'deactive' %>selected="selected"<% end %>>De-Active Deals</option>
+			<option value="all">-------------------</option>
+			<% for d in @deals %>
+				<option value="<%= d.id %>" <% if params[:deal_id] == d.id.to_s %>selected="selected"<% end %>><%= d.name %></option>
+			<% end %>
+		</select><br>
+		
+	</div>
+</div>
+<form>
+	<div style="width:980px;margin:0 auto 10px auto;background-color:#782f59;padding:5px;color:#ffffff;">
+		Voucher ID: <input value="" type="text" id="voucher_id" style="width:300px;"> <input type="button" value="Redeem" onclick="redeemVocuher()">
+	</div>
+	<table class="redeem_table" cellpadding="4">
+		<thead>
+		<tr>
+			<th>Deal</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Voucher ID</th>
+			<th>Value</th>
+			<th>Redeem Voucher</th>
+		</tr>
+		</thead>
+		<tbody>
+	<% for v in @vouchers %>
+		<tr style="background-color:#<%= cycle('ffffff', 'f1f1f1')%>;">
+			<td><%= v.deal.name %></td>
+			<td><%= v.customer_first_name %></td>
+			<td><%= v.customer_last_name %></td>
+			<td><%= v.id %></td>
+			<td><%= number_to_currency v.retail %></td>
+			<td>
+				<% if v.status == 'redeemed' %>
+					Already Redeemed
+				<% else %>
+					<input type="button" value="Redeem Now" onclick="redeemVocuher('<%= v.id %>')">
+				<% end %>
+				
+			</td>
+		</tr>
+	<% end %>
+	</tbody>
+	</table>
+</form>
+
+<script type="text/javascript" charset="utf-8" src="/assets/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+	
+	// Sort 
+	
+	/**
+	 * jQuery.fn.sort
+	 * --------------
+	 * @author James Padolsey (http://james.padolsey.com)
+	 * @version 0.1
+	 * @updated 18-MAR-2010
+	 * --------------
+	 * @param Function comparator:
+	 *   Exactly the same behaviour as [1,2,3].sort(comparator)
+	 *   
+	 * @param Function getSortable
+	 *   A function that should return the element that is
+	 *   to be sorted. The comparator will run on the
+	 *   current collection, but you may want the actual
+	 *   resulting sort to occur on a parent or another
+	 *   associated element.
+	 *   
+	 *   E.g. $('td').sort(comparator, function(){
+	 *      return this.parentNode; 
+	 *   })
+	 *   
+	 *   The <td>'s parent (<tr>) will be sorted instead
+	 *   of the <td> itself.
+	 */
+	jQuery.fn.sort = (function(){
+
+	    var sort = [].sort;
+
+	    return function(comparator, getSortable) {
+
+	        getSortable = getSortable || function(){return this;};
+
+	        var placements = this.map(function(){
+
+	            var sortElement = getSortable.call(this),
+	                parentNode = sortElement.parentNode,
+
+	                // Since the element itself will change position, we have
+	                // to have some way of storing it's original position in
+	                // the DOM. The easiest way is to have a 'flag' node:
+	                nextSibling = parentNode.insertBefore(
+	                    document.createTextNode(''),
+	                    sortElement.nextSibling
+	                );
+
+	            return function() {
+
+	                if (parentNode === this) {
+	                    throw new Error(
+	                        "You can't sort elements if any one is a descendant of another."
+	                    );
+	                }
+
+	                // Insert before flag:
+	                parentNode.insertBefore(this, nextSibling);
+	                // Remove flag:
+	                parentNode.removeChild(nextSibling);
+
+	            };
+
+	        });
+
+	        return sort.call(this, comparator).each(function(i){
+	            placements[i].call(getSortable.call(this));
+	        });
+
+	    };
+
+	})();
+	
+	// Sort Function
+	
+	var th = jQuery('th'),
+	                inverse = false;
+
+	            th.click(function(){
+
+	                var header = $(this),
+	                    index = header.index();
+
+	                header
+	                    .closest('table')
+	                    .find('td')
+	                    .filter(function(){
+	                        return $(this).index() === index;
+	                    })
+	                    .sort(function(a, b){
+
+	                        a = $(a).text();
+	                        b = $(b).text();
+
+	                        return (
+	                            isNaN(a) || isNaN(b) ?
+	                                a > b : +a > +b
+	                            ) ?
+	                                inverse ? -1 : 1 :
+	                                inverse ? 1 : -1;
+
+	                    }, function(){
+	                        return this.parentNode;
+	                    });
+
+	                inverse = !inverse;
+
+	            });
+
+	
+	//
+	
+	
+	function loadMerch(){
+		document.getElementById('voucher_id').focus();
+	}
+	
+	function redeemVocuher(vid){
+		if (vid == null){
+			vid = document.querySelector('#voucher_id').value;
+		}
+		postData = {id: vid, company_id: '<%= session[:company_id] %>'};
+		$.post("/merchant/redeemVocuher.json", postData, function(data) {
+			if(data.status == 'success'){
+				alert('This Voucher Is Valid, It has now been marked as redeemed.')
+				document.location.reload(true);
+			}else{
+				alert('This Vocuher Is NOT VALID or has already been redeemed.')
+			}
+		}, 'json')
+		
+	}
+	
+	
+</script>

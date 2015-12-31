@@ -1,0 +1,35 @@
+<div id="dealHeader">
+	<h2>Areas</h2>
+</div>
+<div id="dealInfoWrapper" class="paddedBox">
+	<table style="width:100%;">
+		<tr style="background-color:#555555;color:#ffffff;">
+			<td class="row">Area Name</td>
+			<td class="row">Actions</td>
+		</tr>
+		<tr>
+			<td>
+				<%= form_tag(:action => 'addArea') do %>
+				Area Name: <%= text_field(:area, :name)%>
+			</td>
+			<td>
+				<%= submit_tag("Add Area")%>
+				<% end %>
+			</td>
+		</tr>
+		<% for a in @areas %>
+			<tr style="background-color:#<%= cycle('ffffff', 'efefef')%>;">
+				<td class="row"><%= a.name %></td>
+				<td class="row">
+					<a href="/manage/editArea/<%= a.id %>" class="button">Edit</a>
+					<a href="/manage/deleteArea/<%= a.id %>" class="button">Delete</a>
+				</td>
+			</tr>
+		<% end %>
+		<tr>
+			<td colspan="5" style="text-align:right;">
+				<%= will_paginate @areas %>
+			</td>
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,278 @@
+<div id="dealHeader">
+	Checkout: <%= @deal.headline %>
+</div><br>
+<div id="dealInfoWrapper" style="padding:10px 20px;">	
+	<% if flash[:error] != nil %>
+		<%= flash[:error] %>
+	<% end %>
+	<% if session[:user] == nil %>
+	
+	
+	<div id="purshaseAccountSelectWrapper">
+		<div id="purshaseAccountSelect">
+			<h2>I Have An Account</h2>
+			Already have an account? Login below before you purchase.<br><br>
+			<%= form_tag(:action => 'checkoutLogin', :id => params[:id]) do%>
+			<div style="purchaseFormWrapper">
+				<div id="inputTitle">
+					Username:
+				</div>
+				<div id="inputTitle">
+					<%= text_field(:user, :email) -%>
+				</div>
+				<div id="inputTitle">
+					Password:
+				</div>
+				<div id="inputTitle">
+					<%= text_field(:user, :password) -%>
+				</div>
+				<%= submit_tag("Login", :class => 'loginBox')%>
+			</div>
+			<% end %>
+		</div>
+		<div id="purshaseAccountSelect" style="border-left:2px solid #d1d1d1;">
+		<% end %>
+		<%= form_tag(:action => 'register', :id => params[:id], :deal_id => params[:id]) do %>
+		<% if session[:user] == nil %>
+			<h2>I Do Not Have An Account</h2>
+			Don't have an account? No worries, just enter your email and choose a password.<br><br>
+
+			<div style="purchaseFormWrapper">
+				<div id="inputTitle">
+					First Name:
+				</div>
+				<div id="inputTitle">
+					<%= text_field(:customer, :first_name) -%>
+				</div>
+				<div id="inputTitle">
+					Last Name:
+				</div>
+				<div id="inputTitle">
+					<%= text_field(:customer, :last_name) -%>
+				</div>
+				<div id="inputTitle">
+					Email:
+				</div>
+				<div id="inputTitle">
+					<%= text_field(:customer, :email) -%>
+				</div>
+				<div id="inputTitle">
+					New Password:
+				</div>
+				<div id="inputTitle">
+					<%= text_field(:customer, :new_password) -%>
+				</div>
+				<div id="inputTitle">
+					Password Again:
+				</div>
+				<div id="inputTitle">
+					<%= text_field(:customer, :new_password_verify) -%>
+				</div>
+				<div id="inputTitle" style="text-align:right;">
+					<%= submit_tag("Register", :class => 'loginBox')%>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<% end %>
+	<% if session[:user] != nil %>
+		<%= form_tag(:action => 'confirmPurchase', :id => params[:id]) do %>
+		<div id="mainPurchaseFormWrapper">
+			<h3>Order Information:</h3>
+			<div id="checkoutTotalsLeft">
+				<strong>Deal:</strong> <%= @deal.headline %><br>
+				<strong>Cost:</strong> <%= number_to_currency @deal.cost %><br>
+				<strong>Retail Value:</strong> <%= number_to_currency @deal.retail %>
+			</div>
+			<div id="checkoutTotalsRight">
+				What you'll be charged:<br>
+				<h4>Total:</h4> <h5><%= number_to_currency @deal.cost %></h5>
+			</div>
+		</div>
+		<div id="mainPurchaseFormWrapper">
+			<h3>Payment Information:</h3>
+			<table style="">
+				<tr>
+					<td style="width:50%;">
+						Quantity
+					</td>
+					<td style="width:50%;">
+						<% if @qty_left <= 0 %>
+							<strong>Sold Out!</strong>
+						<% else %>
+							<select id="deal_qty" name="deal_qty">
+								<% n = 1 %>
+								<% @qty_left.times do %>
+									<option value="<%= n %>"><%= n %></option>
+									<% n+= 1 %>
+								<% end %>
+							</select>
+						<% end %>
+					</td>
+				</tr>
+			</table>
+		</div>
+			<% if @qty_left >= 1 %>
+				<div id="mainPurchaseFormWrapper">
+					<h3>Payment Information:</h3>
+
+
+					<table class="purchaseFormWrapper" style="width:680px;">
+						<% if session[:user] != nil %>
+							<% if @user.credit_cards.count >= 1 %>
+								<tr>
+									<td colspan="4">
+										<div id="existingCCWrapper">
+											<strong><em>Existing Credit Cards</em></strong><br>
+											<% for cc in @user.credit_cards %>
+												<input name="ccgroup" type="radio" value="<%= cc.id %>" onclick="purchaseDealSelectCC('existing')" /> Credit Card Ending <%= cc.last_four %><br>
+											<% end %>
+											<div style="display:none;" id="radioNewCC">
+												<input name="ccgroup" type="radio" onclick="purchaseDealSelectCC('new')"> Use A New Credit Card<br>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tbody id="newCCArea">
+								<tr><td colspan="4" style="padding:10px;"><em><strong>New Credit Card</strong></em></td></tr>
+
+							<% end %>
+						<% end %>
+						<tr>
+							<td class="inputTitle">Credit Card Number:</td>
+							<td colspan="3"><%= text_field(:card, :number, :class=>'inputField') -%></td>
+						</tr>
+						<tr>
+							<td class="inputTitle">
+								EXP Month:
+								<select id="card_month" name="card[month]">
+									<option value="">Select Month</option>
+									<option value="01">01 - January</option>
+									<option value="02">02 - February</option>
+									<option value="03">03 - March</option>
+									<option value="04">04 - April</option>
+									<option value="05">05 - May</option>
+									<option value="06">06 - June</option>
+									<option value="07">07 - July</option>
+									<option value="08">08 - August</option>
+									<option value="09">09 - September</option>
+									<option value="10">10 - October</option>
+									<option value="11">11 - November</option>
+									<option value="12">12 - December</option>
+								</select>
+							</td>
+							<td class="inputTitle">
+								EXP Year:
+								<select id="card_year" name="card[year]">
+									<option value="">Select Year</option>
+									<option value="2012">2012</option>
+									<option value="2013">2013</option>
+									<option value="2014">2014</option>
+									<option value="2015">2015</option>
+									<option value="2016">2016</option>
+									<option value="2017">2017</option>
+									<option value="2018">2018</option>
+									<option value="2019">2019</option>
+									<option value="2020">2020</option>
+								</select>
+							</td>
+							<td colspan="2" class="inputTitle">
+								CVV 	<%= text_field(:card, :cvv, :class=>'inputFieldSkinny') -%>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<div id="billingAddressArea">
+						<h3>Billing Address:</h3>
+						<table class="purchaseFormWrapper">
+
+							<tr>
+								<td class="inputTitle">Name On Card:</td>
+								<td colspan="3"><%= text_field(:card, :name, :class=>'inputField') -%></td>
+							</tr>
+							<tr>
+								<td class="inputTitle">Address:</td>
+								<td colspan="3"><%= text_field(:card, :address, :class=>'inputField') -%></td>
+							</tr>
+							<tr>
+								<td class="inputTitle">
+									City <%= text_field(:card, :city, :class=>'inputFieldSkinny') -%>
+								</td>
+								<td class="inputTitle">
+									State 
+									<%= select_tag "card[state]", 
+									options_for_select(
+									{ 
+										'Select State' => '',
+										'Alaska' => 'AK',
+										'Alabama' => 'AL',
+										'Arkansas' => 'AR',
+										'Arizona' => 'AZ',
+										'California' => 'CA',
+										'Colorado' => 'CO',
+										'Connecticut' => 'CT',
+										'District of Columbia' => 'DC',
+										'Delaware' => 'DE',
+										'Florida' => 'FL',
+										'Georgia' => 'GA',
+										'Hawaii' => 'HI',
+										'Iowa' => 'IA',
+										'Idaho' => 'ID',
+										'Illinois' => 'IL',
+										'Indiana' => 'IN',
+										'Kansas' => 'KS',
+										'Kentucky' => 'KY',
+										'Louisiana' => 'LA',
+										'Massachusetts' => 'MA',
+										'Maryland' => 'MD',
+										'Maine' => 'ME',
+										'Michigan' => 'MI',
+										'Minnesota' => 'MN',
+										'Missouri' => 'MO',
+										'Mississippi' => 'MS',
+										'Montana' => 'MT',
+										'North Carolina' => 'NC',
+										'North Dakota' => 'ND',
+										'Nebraska' => 'NE',
+										'New Hampshire' => 'NH',
+										'New Jersey' => 'NJ',
+										'New Mexico' => 'NM',
+										'New York' => 'NY',
+										'Nevada' => 'NV',
+										'Ohio' => 'OH',
+										'Oklahoma' => 'OK',
+										'Oregon' => 'OR',
+										'Pennsylvania' => 'PA',
+										'Puerto Rico' => 'PR',
+										'Rhode Island' => 'RI',
+										'South Carolina' => 'SC',
+										'South Dakota' => 'SD',
+										'Tennessee' => 'TN',
+										'Texas' => 'TX',
+										'Utah' => 'UT',
+										'Virginia' => 'VA',
+										'Vermont' => 'VT',
+										'Washington' => 'WA',
+										'Wisconsin' => 'WI',
+										'West Virginia' => 'WV',
+										'Wyoming' => 'WY'
+										})%>
+								</td>
+								<td colspan="2" class="inputTitle">
+									Zipcode 	<%= text_field(:card, :zip, :class=>'inputFieldSkinny') -%>
+								</td>
+							</tr>
+
+						</table>
+					</div>
+					<br><br>
+					<%= submit_tag("Purchase Deal", :class => 'purchaseButton')%>
+				</div>
+			<% end %>
+		
+		<% end %>
+		<br>
+	<% end %>
+	
+</div>

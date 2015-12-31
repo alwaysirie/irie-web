@@ -1,0 +1,35 @@
+<div id="indexWrapper">
+	<%= form_tag(:action => 'index', :filter => 1) do %>
+	<div id="searchWrapper">
+			Max Price: $<input type="text" id="max_price" name="max_price" class="inputField" value="<%= params[:max_price] %>">
+			Locations: 
+			<select name="area_id" id="area_id" size="1" class="inputField">
+				<option value="all">All Areas</option>
+				<% for a in Area.active %>
+					<option value="<%= a.id %>"><%= a.name %></option>
+				<% end %>
+			</select>
+			<input type="submit" value="Apply Filter">
+	</div>
+	<% end %>
+	<div id="regularWrapper">
+		<% for d in @deals %>
+		<div class="dealWrapper">
+			<h4><%= d.company.name %></h4>
+			<img src="/images/<%= d.home %>">
+			<p>
+				<%= d.headline %><br>
+				<div class="priceWrapper">
+					<div class="priceLeft">
+						<strong>Price:</strong> <%= number_to_currency d.cost %><br>
+						<strong>Value:</strong> <%= number_to_currency d.retail %>
+					</div>
+					<div class="priceRight">
+						<a href="/web/deal/<%= d.id %>">View Deal</a>
+					</div>
+				</div>
+			</p>
+		</div>
+		<% end %>
+	</div>
+</div>

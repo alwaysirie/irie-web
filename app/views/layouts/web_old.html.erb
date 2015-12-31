@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<% if params[:action] == 'deal' %>
+			<title><%= @deal.company_name %> :: <%= @deal.headline %></title>
+		<% else %>
+			<title>NytLife :: Party More, Pay Less</title>
+		<% end %>
+		<meta type="description" content="NytLife (#nytlife) provides access to the hottest clubs in your area at a fraction of the cost.">
+		<!-- CSS -->
+		<link href='https://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+		<%= stylesheet_link_tag :web %>
+		<!-- JAVASCRIPTS -->
+		<script type="text/javascript" charset="utf-8" src="/assets/webjs.js"></script>
+		<link href="https://developers.google.com/maps/documentation/javascript/examples/default.css" rel="stylesheet">
+	    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	
+		<!-- Google Analytics -->
+		<script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-36917402-1']);
+		  _gaq.push(['_setDomainName', 'nytlife.com']);
+		  _gaq.push(['_setAllowLinker', true]);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+	</head>
+	<body>
+		<div id="headerWrapper">
+			<div id="headerInnerWrapper">
+				<table class="headerlinks" cellspacing="0" cellpadding="0">
+					<tr>
+						<td class="headerLinks">
+							<div style="float:left;margin:0 15px 0 0;">
+								<% if session[:user] == nil %>
+									<a href="/login">Sign In</a> - <a href="/login">Sign Up</a>
+								<% else %>
+									<a href="/myAccount">My Account</a> - <a href="/web/logout">Logout</a>
+								<% end %>
+							</div>
+							<div style="float:left;margin:-3px 15px 0 15px;">
+								<a href="/"><img src="/assets/planTheNight.png" border="0"></a>
+							</div>
+							<div style="float:left;margin:-2px 15px 0 15px;">
+								<a href="/how_it_works"><img src="/assets/howItWorks.png" border="0"></a>
+							</div>
+						</td>
+						<td class="headerLogo"><a href="/"><img src="/assets/logo.png" border="0"></a></td>
+					</tr>
+				</table>
+			</div>
+		</div><br>
+		<div id="contentWrapper">
+			<%= yield %>
+		</div>
+		<div id="footerWrapper">
+			<div id="footerBar">
+			
+			</div>
+			<div id="footerContent">
+				<div id="footerDiv">
+					<a href="/mobile"><img src="/assets/mobileapp.png" border="0"></a>
+				</div>
+				<div id="footerDiv">
+					<a href="/solutions"><img src="/assets/solutions.png" border="0"></a>
+				</div>
+				<div id="footerDiv">
+					<div id="socialButtons">
+						<a href="http://www.facebook.com/pages/NytLife/463223983698649" target="_blank"><img src="/assets/facebook.png" border="0"></a>
+						<a href="http://twitter.com/yourNytLife " target="_blank"><img src="/assets/twitter.png" border="0"></a>
+					</div>
+					<div id="socialLinks">
+						<a href="/solutions">FAQ</a> - <a href="/web/toc">Terms of Use</a> - <a href="/web/toc">Privacy Policy</a> - <a href="/solutions">Contact Us</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

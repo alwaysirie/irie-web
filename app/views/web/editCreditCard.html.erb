@@ -1,0 +1,38 @@
+<div id="dealHeader">
+	Credit Card
+</div><br>
+<%= form_tag(:action => 'editCreditCard', :id => params[:id]) do %>
+<div id="dealInfoWrapper" class="paddedBox">
+		<table class="userInfoTable">
+			<tr>
+				<td><strong>Cardholder Name</strong><br><%= text_field(:credit_card, :name) %></td>
+				<td><strong>Card Number</strong><br><%= text_field(:credit_card, :number) %></td>
+			</tr>
+			<tr>
+				<td><strong>EXP Date</strong><br><%= text_field(:credit_card, :exp_date) %></td>
+				<td><strong>EXP Date</strong><br><%= text_field(:credit_card, :cvv) %></td>
+			</tr>
+			<tr>
+				<td colspan="2"><strong>Address</strong><br><%= text_field(:credit_card, :name) %></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div style="float:left;width:150px;">
+						<strong>City</strong><br><%= text_field(:credit_card, :city) %>
+					</div>
+					<div style="float:left;width:150px;">
+						<strong>State</strong><br><%= text_field(:credit_card, :state) %>
+					</div>
+					<div style="float:left;width:150px;">
+						<strong>Zipcode</strong><br><%= text_field(:credit_card, :zip) %>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align:right;">
+					<%= submit_tag("Submit")%>
+				</td>
+			</tr>
+		</table>
+</div>
+<% end %>

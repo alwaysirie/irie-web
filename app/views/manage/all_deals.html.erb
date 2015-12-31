@@ -1,0 +1,17 @@
+<h2>All Deals</h2>
+<table class="standardTable" style="margin-top:10px;">
+	<tr>
+		<td class="table_heading">Deal Name</td>
+		<td class="table_heading">Cost</td>
+		<td class="table_heading">Purchases</td>
+		<td class="table_heading">Gross Income</td>
+	</tr>
+	<% for d in @deal %>
+		<tr>
+			<td><a href="/manage/deal/<%= d.id %>"><%= d.name %></a></td>
+			<td><%= number_to_currency d.cost %></td>
+			<td><%= d.purchases %></td>
+			<td><%= number_to_currency d.purchases * d.cost %></td>
+		</tr>
+	<% end %>
+</table>

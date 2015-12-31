@@ -1,0 +1,40 @@
+<div id="dealHeader">
+	New Admin
+</div><br>
+<div id="dealInfoWrapper" class="paddedBox">
+	<%= form_tag(:action => 'add_admin') do %>
+		<div id="manageFormBox">
+			<div class="manageFormTitle">
+				First Name:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:admin, :first_name ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Last Name:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:admin, :last_name ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Email:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:admin, :email ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Password:
+			</div>
+			<div class="manageFormField">
+				<%= password_field(:admin, :new_password ) -%>
+			</div>
+			<div class="manageFormTitle">
+				
+			</div>
+			<div class="manageFormField">
+				<%= submit_tag("Submit") -%>
+			</div>
+		</div>
+	<% end %>
+</div>
+			

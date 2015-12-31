@@ -1,0 +1,28 @@
+<div id="dealHeader">
+	<h2>All Customers</h2>
+</div>
+<div id="dealInfoWrapper" class="paddedBox">
+	<table style="width:100%;">
+		<tr style="background-color:#555555;color:#ffffff;">
+			<td class="row">Customer Name</td>
+			<td class="row">Purchased Deals</td>
+			<td class="row">Email</td>
+			<td class="row">Phone</td>
+			<td class="row">Actions</td>
+		</tr>
+		<% for c in @customers %>
+			<tr style="background-color:#<%= cycle('ffffff', 'efefef')%>;">
+				<td class="row"><%= c.full_name %></td>
+				<td class="row"><%= c.deals_purchased %></td>
+				<td class="row"><%= c.email %></td>
+				<td class="row"><%= number_to_phone c.phone %></td>
+				<td class="row"><a href="/manage/view_customer/<%= c.id %>">View</a></td>
+			</tr>
+		<% end %>
+		<tr>
+			<td colspan="5" style="text-align:right;">
+				<%= will_paginate @customers %>
+			</td>
+		</tr>
+	</table>
+</div>

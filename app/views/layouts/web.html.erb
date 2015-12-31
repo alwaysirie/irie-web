@@ -1,0 +1,65 @@
+<html>
+	<head>
+		<% if params[:action] == 'deal' %>
+			<title><%= @deal.company_name %> :: <%= @deal.headline %></title>
+		<% else %>
+			<title>NytLife :: Party More, Pay Less</title>
+		<% end %>
+		<meta type="description" content="NytLife (#nytlife) provides access to the hottest clubs in your area at a fraction of the cost.">
+		<!-- CSS -->
+		<link href='https://fonts.googleapis.com/css?family=Port+Lligat+Slab' rel='stylesheet' type='text/css'>
+		<%= stylesheet_link_tag :web %>
+		<!-- JAVASCRIPTS -->
+		<script type="text/javascript" charset="utf-8" src="/assets/webjs.js"></script>
+		<link href="https://developers.google.com/maps/documentation/javascript/examples/default.css" rel="stylesheet">
+	    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	
+		<!-- Google Analytics -->
+		<script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-36917402-1']);
+		  _gaq.push(['_setDomainName', 'nytlife.com']);
+		  _gaq.push(['_setAllowLinker', true]);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+	</head>
+	<body>
+		<div id="headerWrapper">
+			<div id="subHeaderWrapper">
+				<div id="headerLogo">
+					<a href="/"><img src="/assets/headerLogo.png"></a>
+				</div>
+				<div id="headerButtonWrapper">
+					<a href="/"><div class="headerButton" style="border-left:1px solid #e1e1e1;">Home</div></a>
+					<a href="/how_it_works"><div class="headerButton">How It Works</div></a>
+					<a href="/solutions"><div class="headerButton">Be Featured</div></a>
+				</div>
+				<div id="rightHeader">
+					<div id="loginWrapper">
+						<% if session[:user] == nil %>
+							<a href="/login">Login</a> - <a href="/login">Register</a></a>
+						<% else %>
+							<a href="/myAccount">My Account</a>
+						<% end %>
+					</div>
+					<div id="socialWrapper">
+						<a href="http://twitter.com/yourNytLife" target="_blank"><img src="/assets/headerTwitter.png" ></a>
+						<a href="https://www.facebook.com/NytLife" target="_blank"><img src="/assets/headerFacebook.png"></a>
+						<a href="http://pinterest.com/nytlife/"><img src="/assets/headerPinterest.png"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="contentWrapper">
+			<%= yield %>
+		</div>
+	</body>
+</html>

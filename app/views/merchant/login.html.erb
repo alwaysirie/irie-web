@@ -1,0 +1,11 @@
+<% if flash[:error] != nil %>
+	flash[:error]
+<% end %>
+<%= form_tag(:action => 'login') do %>
+<div style="width:500px;margin:10px auto;padding:20px;background-color:#ffffff;border:10px solid #888888;">
+	<h3 style="margin:0px 0 20px 0;">Company Login</h3>
+	Username: <%= text_field(:company, :username)%><br>
+	Password: <%= password_field(:company, :password)%><br>
+	<%= submit_tag("Login") %>
+</div>
+<% end %>

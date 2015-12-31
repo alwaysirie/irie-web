@@ -1,0 +1,29 @@
+<table class="standardTable">
+	<tr>
+		<td><h2>All Companies</h2></td>
+		<td style="text-align:right;">
+			<a href="/manage/add_company" class="button" style="float:right;margin:0 2px 8px 0;">Add Company</a>
+		</td>
+	</tr>
+	<tr>
+		<table class="standardTable">
+			<tr>
+				<td class="table_heading">Company</td>
+				<td class="table_heading">Active Deals</td>
+				<td class="table_heading">Pending Deals</td>
+				<td class="table_heading">Expired Deals</td>
+				<td class="table_heading"></td>
+			</tr>
+			<% for c in @companies %>
+				<tr style="background-color:#<%= cycle('ffffff', 'efefef')%>;">
+					<td><%= c.name %></td>
+					<td><%= Deal.all(:status => 'active', :company_id => c.id).count %></td>
+					<td><%= Deal.all(:status => 'pending', :company_id => c.id).count %></td>
+					<td><%= Deal.all(:status.nin => ['active', 'pending'], :company_id => c.id).count %></td>
+					<td style="text-align:right;"><a href="/manage/company/<%= c.id %>" class="button">View Company</td>
+				</tr>
+			<% end %>
+		</table>
+	</tr>
+</table>
+

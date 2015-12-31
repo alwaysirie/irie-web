@@ -1,0 +1,89 @@
+<div id="dealHeader">
+	<%= @customer.full_name %>
+</div><br>
+<%= form_tag(:action => 'edit_customer') do %>
+<div id="dealInfoWrapper" class="paddedBox">
+	<div style="float:left;display:inline-block;width:480px;">
+		<table class="userInfoTable">
+			<tr>
+				<td><strong>First Name</strong><br><%= text_field(:customer, :first_name)%></td>
+				<td><strong>Last Name</strong><br><%= text_field(:customer, :last_name)%></td>
+			</tr>
+			<tr>
+				<td><strong>Email</strong><br><%= text_field(:customer, :email)%></td>
+				<td><strong>Phone</strong><br><%= text_field(:customer, :phone)%></td>
+			</tr>
+			<tr>
+				<td colspan="2"><strong>Address</strong><br><%= text_field(:customer, :address)%></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div style="float:left;width:150px;">
+						<strong>City</strong><br><%= text_field(:customer, :city)%>
+					</div>
+					<div style="float:left;width:150px;">
+						<strong>State</strong><br><%= text_field(:customer, :state)%>
+					</div>
+					<div style="float:left;width:150px;">
+						<strong>Zipcode</strong><br><%= text_field(:customer, :zip)%>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="float:left;display:inline-block;">
+		<div id="pointsWrapper">
+			<div id="pointHeading">My Stats</div>
+			<div id="pointTitle">Deals Bought:</div><div id="pointValue"><%= @customer.deals_purchased %></div>
+			<div id="pointTitle">Money Saved:</div><div id="pointValue"><%= number_to_currency @customer.money_saved %></div>
+			<div id="pointHeading" style="margin-top:10px;">My Points / Affiliate</div>
+			<div id="pointTitle">Total Points:</div><div id="pointValue"><%= @customer.points %></div>
+			<div id="pointTitle">Affiliate Percentage:</div><div id="pointValue"><%= text_field(:customer, :affiliate_percentage)%>%</div>
+		</div>
+	</div>
+	<div style="width:100%;display:inline-block;">
+		<table class="userInfoTable">
+			<tr>
+				<h3>Purchased Deals</h3>
+			</tr>
+			<tr>
+				<td class="table_heading">Deal</td>
+				<td class="table_heading">Cost</td>
+				<td class="table_heading">Worth</td>
+				<td class="table_heading">Discount</td>
+				<td class="table_heading">Actions</td>
+			</tr>
+			<% for v in @customer.vouchers %>
+				<tr class="<%= cycle('odd', 'even')%>">
+					<td class="row"><a href="/deal/<%= v.deal_id %>"><%= v.deal.headline %></a></td>
+					<td class="row"><%= number_to_currency v.deal.cost %></td>
+					<td class="row"><%= number_to_currency v.deal.retail %></td>
+					<td class="row"><%= v.deal.discount %>%</td>
+					<td class="row"><a href="/purchasedDeal/<%= v.id %>">view/download</a></td>
+				</tr>
+			<% end %>
+		</table>
+		
+		<table class="userInfoTable">
+			<tr>
+				<h3>Credit Cards On File</h3>
+			</tr>
+			<tr>
+				<td class="table_heading">Name on Card</td>
+				<td class="table_heading">Card Number</td>
+				<td class="table_heading">Exp Date</td>
+				<td class="table_heading">Actions</td>
+			</tr>
+			<% for c in @customer.credit_cards %>
+				<tr class="<%= cycle('odd', 'even')%>">
+					<td class="row"><%= c.name %></td>
+					<td class="row"><%= c.last_four %></td>
+					<td class="row"><%= c.exp_date %></td>
+					<td class="row">Actions</td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
+<%= submit_tag("Save")%>
+<% end %>

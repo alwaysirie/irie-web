@@ -1,0 +1,17 @@
+<div id="dealHeader">
+	<h2>Edit Area</h2>
+</div>
+<div id="dealInfoWrapper" class="paddedBox">
+	<table style="width:100%;">
+		<tr>
+			<td>
+				<%= form_tag(:action => 'editArea') do %>
+				Location Name: <%= text_field(:area, :name)%>
+			</td>
+			<td>
+				<%= submit_tag("Update Area")%>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+</div>

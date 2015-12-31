@@ -1,0 +1,39 @@
+// Place all the styles related to the merchant controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body{
+	background-color:#f1f1f1;
+	margin:0;
+	font-family:times;
+}
+
+#wrapper{
+	width:1000px;
+	background-color:#ffffff;
+	border:1px solid #cccccc;
+	border-radius:10px;
+	padding:15px;
+	margin:40px auto;
+	#controllerBox{
+		display:inline-block;
+		width:100%;
+	}
+	#logoBox{
+		padding-bottom:20px;
+		float:left;
+	}
+	#optionBox{
+		float:right;
+	}
+}
+
+.redeem_table{
+	width:980px;margin:0 auto;
+	td{
+		text-align:left;
+	}
+	th{
+		text-align:left;
+	}
+}

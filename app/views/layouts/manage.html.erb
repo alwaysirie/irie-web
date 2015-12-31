@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<!-- CSS -->
+			<%= stylesheet_link_tag :manage, :buttons %>
+		<!-- JAVASCRIPTS -->
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+			<script type="text/javascript" charset="utf-8" src="/assets/manage.js"></script>
+	</head>
+	<body>
+		<div id="topBar">
+			<div style="width:1000px;margin:0 auto;">
+				<div id="logo" >FunPass</div>
+				<div style="float:right;">
+					<a href="/manage/admins"><div class="topBarButton">Admins</div></a>
+					<a href="/manage/locations"><div class="topBarButton">Locations</div></a>
+					<a href="/manage/all_companies"><div class="topBarButton">Companies</div></a>
+					<a href="/manage/all_deals"><div class="topBarButton">Deals</div></a>
+					<a href="/manage/all_customers"><div class="topBarButton">Customers</div></a>
+					<a href="/manage/logout"><div class="topBarButton">Logout</div></a>
+				</div>
+			</div>
+		</div>
+		<div id="contentWrapper">
+			<%= yield %>
+		</div>
+	</body>
+</html>

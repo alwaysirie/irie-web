@@ -1,0 +1,83 @@
+<div id="dealHeader">
+	<%= @user.full_name %>
+</div><a href="/editAccount" class="button" style="float:right;margin:0 2px 8px 0;">Edit Account</a><br>
+<div id="dealInfoWrapper" class="paddedBox">
+	<div style="float:left;display:inline-block;width:480px;">
+		<table class="userInfoTable">
+			<tr>
+				<td><strong>First Name</strong><br><%= @user.first_name %></td>
+				<td><strong>Last Name</strong><br><%= @user.last_name %></td>
+			</tr>
+			<tr>
+				<td><strong>Email</strong><br><%= @user.email %></td>
+				<td><strong>Phone</strong><br><%= @user.phone %></td>
+			</tr>
+			<tr>
+				<td colspan="2"><strong>Address</strong><br><%= @user.address %></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div style="float:left;width:150px;">
+						<strong>City</strong><br><%= @user.city %>
+					</div>
+					<div style="float:left;width:150px;">
+						<strong>State</strong><br><%= @user.state %>
+					</div>
+					<div style="float:left;width:150px;">
+						<strong>Zipcode</strong><br><%= @user.zip %>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="float:left;display:inline-block;">
+		<div id="pointsWrapper">
+			<div id="pointHeading">My Stats</div>
+			<div id="pointTitle">Deals Bought:</div><div id="pointValue"><%= Voucher.count(:customer_id => @user.id) %></div>
+			<div id="pointTitle">Money Saved:</div><div id="pointValue"><%= number_to_currency Voucher.all(:customer_id => @user.id).to_a.sum(&:savings) %></div>
+		</div>
+	</div>
+	<div style="width:100%;display:inline-block;">
+		<table class="userInfoTable">
+			<tr>
+				<h3>Purchased Deals</h3>
+			</tr>
+			<tr>
+				<td class="table_heading">Deal</td>
+				<td class="table_heading">Cost</td>
+				<td class="table_heading">Worth</td>
+				<td class="table_heading">Discount</td>
+				<td class="table_heading">Actions</td>
+			</tr>
+			<% for v in @user.vouchers %>
+				<tr class="<%= cycle('odd', 'even')%>">
+					<td class="row"><a href="/deal/<%= v.deal_id %>"><%= v.deal.headline %></a></td>
+					<td class="row"><%= number_to_currency v.cost %></td>
+					<td class="row"><%= number_to_currency v.deal.retail %></td>
+					<td class="row"><%= v.deal.discount %>%</td>
+					<td class="row"><a href="/purchasedDeal/<%= v.id %>" class="button">view/download</a></td>
+				</tr>
+			<% end %>
+		</table>
+		
+		<table class="userInfoTable">
+			<tr>
+				<h3>Credit Cards On File</h3>
+			</tr>
+			<tr>
+				<td class="table_heading">Name on Card</td>
+				<td class="table_heading">Card Number</td>
+				<td class="table_heading">Exp Date</td>
+				<td class="table_heading">Actions</td>
+			</tr>
+			<% for c in @user.credit_cards %>
+				<tr class="<%= cycle('odd', 'even')%>">
+					<td class="row"><%= c.name %></td>
+					<td class="row">Ending: <%= c.last_four %></td>
+					<td class="row"><%= c.exp_date %></td>
+					<td class="row"><a href="/viewCreditCard/<%= c.id %>" class="button">View</a></td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,22 @@
+<div id="dealHeader">
+	<h2>All Admins</h2>
+	<a href="/manage/add_admin" class="button">Add Admin</a>
+</div>
+<div id="dealInfoWrapper" class="paddedBox">
+	<table style="width:100%;">
+		<tr style="background-color:#555555;color:#ffffff;">
+			<td class="row">First Name</td>
+			<td class="row">Last Name</td>
+			<td class="row">Email</td>
+			<td class="row">Actions</td>
+		</tr>
+		<% for a in @admins %>
+			<tr style="background-color:#<%= cycle('ffffff', 'efefef')%>;">
+				<td class="row"><%= a.first_name %></td>
+				<td class="row"><%= a.last_name %></td>
+				<td class="row"><%= a.email %></td>
+				<td class="row" style="text-align:center;"><a href="/manage/edit_admin/<%= a.id %>" class="button">Edit</a> <a href="/manage/destroyAdmin/<%= a.id %>" class="button">Delete</a></td>
+			</tr>
+		<% end %>
+	</table>
+</div>

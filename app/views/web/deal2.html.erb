@@ -1,0 +1,72 @@
+<div id="dealInfoWrapper">
+	<div id="dealTopInfoBox">
+		<div id="dealTopInfoBoxImg">
+			<img src="/images/deal.png">
+		</div>
+		<div id="dealTopInfoBoxRight">
+			<div id="dealTopInfoBoxRightAmount">
+				<%= @deal.cost %>
+			</div>
+			<div id="dealTopInfoBoxRightInfo">
+				<div id="dealTopInfoBoxRightInfoSpec" class="borderRight">
+					<h3><%= (@deal.discount*100) %>%</h3>
+					Discount
+				</div>
+				<div id="dealTopInfoBoxRightInfoSpec" class="borderRight">
+					<h3><%= @deal.purchases %></h3>
+					Purchased
+				</div>
+				<div id="dealTopInfoBoxRightInfoSpec">
+					<h3><%= @deal.timeRemaining %></h3>
+					Days Left
+				</div>
+			</div>
+			<div id="dealTopInfoBoxRightBuy">
+				<a href="/web/purchaseDeal/<%= @deal.id %>"><img src="/assets/buyNowButton.png" border="0"></a>
+			</div>
+		</div>
+	</div>
+	<div id="dealNavWrapper">
+		<div id="dealNavBox">
+			<a onclick="changeDealInfo('dealDescription');">DEAL DESCRIPTION</a>
+		</div>
+		<div id="dealNavBox">
+			<a onclick="changeDealInfo('dealFinePrint');">FINE PRINT</a>
+		</div>
+		<div id="dealNavBox">
+			<a onclick="changeDealInfo('dealMapsInfo');">LOCATIONS</a>
+		</div>
+	</div>
+	<div id="dealContentWrapper">
+		<!-- Deal Info Section -->
+		<div id="dealDescription">
+			<div id="dealDescriptionLeft">
+				<%= @deal.description.html_safe %>
+			</div>
+			<div id="dealDescriptionRight">
+				<div id="mainRotatingPic">
+					<img src="/images/mainrpic.png">
+				</div>
+			</div>
+		</div>
+		<!-- Deal Info Section -->
+		<div id="dealFinePrint">
+			<%= @deal.fine_print.html_safe %>
+		</div>
+		<!-- Deal Info Section -->
+		<div id="dealMapsInfo">
+			This deal is valid at the fallowing locations:<br>
+			<% for l in @locations %>
+				<div id="dealMapWrapper">
+					<div id="dealMapInfo">
+						<%= l.name %><br>
+						<%= l.full_address.html_safe %>
+					</div>
+					<div id="dealMapArea">
+						
+					</div>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>

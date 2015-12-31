@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<title>NytLife</title>
+		<meta type="keywords" content="#nytlife">
+		<style type="text/css" media="screen">
+			body{
+				margin:0;
+				background-image:url('/assets/mobileLoadingBG.gif');
+				background-repeat:repeat;
+			}
+			#mainWrapper{
+				margin:40px auto;
+				-webkit-box-shadow: 0px 0px 4px 4px #555;
+				box-shadow: 0px 0px 4px 4px #555;
+				background-color:#fefefe;
+				width:600px;
+				display:inline-block;
+				padding:30px;
+				border:10px solid #d5549f;
+				border-radius:20px;
+				background-image:url('/assets/mobile_chrisBg.png');
+				background-repeat:repeat;
+			}
+			
+			p{
+				text-align:center;
+				font-size:15px;
+			}
+			
+			.formBox{
+				padding:20px;
+				background-color:#ffffff;
+				font-size:17px;
+				border:1px dashed #999999;
+				border-radius:10px;
+			}
+			
+			.formBox td{
+				padding:4px 10px;
+			}
+			
+			.submitButton{
+				padding:10px 20px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<center>
+			<div id="mainWrapper">
+				<img src="/assets/mobile_logoChris.png">
+				<p>NytLife is an exclusive, invite only club offering deals at the areas most prestigious venues.<br>
+					Enter your information below for a chance at vip access. Invitations not guaranteed*
+				</p>
+				<%= form_tag(:action=> 'splash') do %>
+				<table class="formBox">
+					<tr>
+						<td>First Name:</td>
+						<td><%= text_field(:customer, :first_name )%></td>
+					</tr>
+					<tr>
+						<td>Last Name:</td>
+						<td><%= text_field(:customer, :last_name )%></td>
+					</tr>
+					<tr>
+						<td>Email Address:</td>
+						<td><%= text_field(:customer, :email )%></td>
+					</tr>
+					<tr>
+						<td>Password:</td>
+						<td><%= text_field(:customer, :new_password )%></td>
+					</tr>
+					<tr>
+						<td style="text-align:right;" colspan="2">
+							<%= submit_tag("Apply for Access", :style => 'padding:6px 12px;background-color:#d5549f;color:#ffffff;border-radius:4px;border:0;-webkit-box-shadow: 0px 0px 4px 4px #555;box-shadow: 0px 0px 4px 4px #555;') %>
+						</td>
+					</tr>
+				</table>
+				<% end %>
+			</div><br>
+			<a href="http://www.facebook.com/pages/NytLife/463223983698649" target="_blank"><img src="/assets/facebook.png" border="0" style="margin-right:20px;"></a>
+			<a href="http://twitter.com/yourNytLife " target="_blank"><img src="/assets/twitter.png" border="0"></a>
+		</center>
+	</body>
+</html>

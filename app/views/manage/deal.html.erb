@@ -1,0 +1,46 @@
+<div id="dealHeader">
+ 	<%= @company.name %>: <%= @deal.name %>
+</div>
+<a href="/manage/edit_deal/<%= @deal.id %>" class="button" style="float:right;margin:0 2px 8px 0;">Edit Deal</a><br>
+<div< id="dealInfoWrapper" class="paddedBox">
+	<table class="standardTable">
+		<tr>
+			<td style="width:50%;"><strong>Name</strong><br><%= @deal.name %></td>
+			<td style="width:50%;"><strong>Headline</strong><br><%= @deal.headline %></td>
+		</tr>
+		<tr>
+			<td style="width:50%;"><strong>Status</strong><br><%= @deal.status.titleize %></td>
+			<td style="width:50%;"><strong>Company</strong><br><%= @deal.company_name %></td>
+		</tr>
+		<tr>
+			<td style="width:50%;"><strong>Purchases</strong><br><%= @deal.purchases %></td>
+			<td style="width:50%;"><strong>Gross Profit</strong><br><%= number_to_currency @deal.gross_profit %></td>
+		</tr>
+		<tr>
+			<td style="width:50%;"><strong>Cost</strong><br><%= number_to_currency @deal.cost %></td>
+			<td style="width:50%;"><strong>Retail Value</strong><br><%= number_to_currency @deal.retail %></td>
+		</tr>
+		<tr>
+			<td style="width:50%;"><strong>Start Date</strong><br><%= @deal.start_date.strftime('%b %d, %Y') %></td>
+			<td style="width:50%;"><strong>End Date</strong><br><%= @deal.end_date.strftime('%b %d, %Y') %></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<strong>Summary</strong><br>
+				<%= @deal.summary %>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<strong>Description</strong><br>
+				<%= @deal.description %>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<strong>Fine Print</strong><br>
+				<%= @deal.fine_print %>
+			</td>
+		</tr>
+	</table>
+</div>

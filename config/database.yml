@@ -1,0 +1,4 @@
+<%= Rails.env %>:
+    adapter: mongo
+    host: 127.0.0.1
+    database: funpass-<%= Rails.env %>

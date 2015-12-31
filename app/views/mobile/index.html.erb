@@ -1,0 +1,292 @@
+<!-- HomePage -->
+<div data-role="page" id="HomePage">
+	<%= @heading.html_safe %>
+	<div data-role="content">
+		<div style="margin:-15px;">
+			<table class="HomePageWrapper" cellspacing="0" cellpadding="0">
+				<tbody class="dealInsertWrapper">
+					
+				</tbody>
+				<tr>
+					<td class="homeMainButton">
+						<a href="#DealsPage" data-transition="slide" class="homeButtons"><img src="/assets/mobile_dealList.png" border="0" width="85"><p>All Deals</p></a>	
+					</td>
+					<td class="homeMainButton">
+						<a href="#DealMap" data-transition="slide" class="homeButtons"><img src="/assets/mobile_dealMap.png" border="0" width="85"><br><p>Local Deals</p></a>
+					</td>
+					<td class="homeMainButton">
+						<a href="#MyDeals" data-transition="slide" class="homeButtons"><img src="/assets/mobile_MyDeals.png" border="0" width="85"><br><p>My Deals</p></a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- MyDeals -->
+<div data-role="page" id="MyDeals">
+	<%= @heading.html_safe %>
+	<div data-role="content"> 
+		<div style="margin:-15px;">
+			<table class="myDealsTable">
+				<tr><td colspan="3"><h2>Purchased Deals</h2></td></tr>
+				<tr>
+					<td class="heading">Deal</td>
+					<td class="heading viewMyDeal">View</td>					
+				</tr>
+				<tbody id="myDeals">
+					<tr>
+						<td colspan="3" class="noDeals">You have not purchased any deals yet.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- ViewMyDeal -->
+<div data-role="page" id="ViewMyDeal">
+	<%= @heading.html_safe %>
+	<div data-role="content"> 
+		<div id="viewDealWrapper">
+			<h3 id="viewDealCompanyName">Company Name</h3>
+			<div id="headlineValueWrapper">
+				<div id="viewDealHeadline"></div>
+				<div id="viewDealValue"></div>
+			</div>
+			<div id="viewDealDescription"></div>
+			<div id="viewDealFinePrint"></div>
+			
+			<div id="barcodeArea" style="width:100%;text-align:center;padding:15px 0 15px 0;">
+				<div class="barcode128h" id="barcode128h"></div>
+			</div>
+
+			<div id="viewDealID"></div>
+		</div>
+	</div>
+</div>
+<!-- DealMap -->
+<div data-role="page" id="DealMap">
+	<%= @heading.html_safe %>
+		<div data-role="content" style="width:100%; height:100%; padding:0;"> 
+			<div id="map_canvas"></div>
+		</div>
+</div>
+<!-- DealsPage -->
+<div data-role="page" id="DealsPage">
+	<%= @heading.html_safe %>
+	<div id="filter">
+		<form>
+			Max Price:
+			<select name="priceFilter" id="priceFilter" onchange="updateFilter()" size="1">
+				<option value="">No Limit</option>
+				<option value="5">$5.00</option>
+				<option value="10">$10.00</option>
+				<option value="15">$15.00</option>
+				<option value="20">$20.00</option>
+				<option value="25">$25.00</option>
+				<option value="30">$30.00</option>
+				<option value="40">$40.00</option>
+				<option value="50">$50.00</option>
+				<option value="75">$75.00</option>
+				<option value="100">$100.00</option>
+				<option value="150">$150.00</option>
+			</select>
+			Location:
+			<%= select_tag("areaFilter", options_from_collection_for_select(@areas, "id", "name"), :prompt => "All Locations", :onchange => 'updateFilter()') %>
+		</form>
+	</div>
+	<div data-role="content" id="dealListWrapper" style="margin:-15px;">
+		
+	</div>
+</div>
+<!-- ViewDealPage -->
+<div data-role="page" id="ViewDealPage">
+	<%= @heading.html_safe %>
+	<div data-role="content">
+		<div id="dealData" style="margin:-15px;">
+			
+		</div>
+	</div>
+</div>
+<!-- PurchaseDeal -->
+<div data-role="page" id="PurchaseDeal" data-backbtn="false">
+	<%= @heading.html_safe %>
+	<div data-role="content">
+		<div id="dealPurchaseData" style="margin:-15px;">
+			<div id="mainPurchaseFormWrapper">
+				<h3>Order Information:</h3>
+				<table class="checkoutTotalsTop">
+					<tr>
+						<td colspan="2" class="purchaseDealHeadline">
+			
+						</td>
+					</tr>
+					<tr>
+						<td class="checkoutTotalsLeft">
+							
+						</td>
+						<td class="checkoutTotalsRight">
+							<h4>Total: $25</h4>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="mainPurchaseFormWrapper">
+				<h3>Quantity:</h3>
+				<table style="width:50%;">
+					<tr>
+						<td style="width:50%;">
+							Quantity
+						</td>
+						<td class="checkoutTotalQty" style="width:50%;">
+							<select id="deal_qty" name="deal_qty">
+								
+							</select>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="mainPurchaseFormWrapper">
+				<h3>Payment Information:</h3>
+				<form>
+					<input type="hidden" value="" id="purchseDealId">
+				<div id="paymentContainer">
+					<input name="ccgroup" type="radio" value="new_card" onclick="purchaseDealSelectCC('new')" checked="checked"> Use A New Credit Card<br>
+				</div>
+				<div style="padding:0 10px;">
+					<div id="newCCArea">
+						<h5 id="newCardLabel">New Credit Card</h5>
+						Credit Card Number:<br>
+						<input type="text" id="card_number"><br>
+						EXP Month:
+						<select id="card_month" name="card_month">
+							<option value="">Select Month</option>
+							<option value="01">01 - January</option>
+							<option value="02">02 - February</option>
+							<option value="03">03 - March</option>
+							<option value="04">04 - April</option>
+							<option value="05">05 - May</option>
+							<option value="06">06 - June</option>
+							<option value="07">07 - July</option>
+							<option value="08">08 - August</option>
+							<option value="09">09 - September</option>
+							<option value="10">10 - October</option>
+							<option value="11">11 - November</option>
+							<option value="12">12 - December</option>
+						</select><br>
+						EXP Year:<br>
+						<select id="card_year" name="card_year">
+							<option value="">Select Year</option>
+							<option value="2012">2012</option>
+							<option value="2013">2013</option>
+							<option value="2014">2014</option>
+							<option value="2015">2015</option>
+							<option value="2016">2016</option>
+							<option value="2017">2017</option>
+							<option value="2018">2018</option>
+							<option value="2019">2019</option>
+							<option value="2020">2020</option>
+						</select><br>
+						CVV: <input type="text" id="card_cvv"><br>
+						
+						Name On Card:<br>
+						<input type="text" id="card_name"><br>
+						Address:<br>
+						<input type="text" id="card_address"><br>
+						City<br>
+						<input type="text" id="card_city"><br>
+						State<br>
+						<%= select_tag "card_state", 
+						options_for_select(
+						{ 
+							'Select State' => '',
+							'Alaska' => 'AK',
+							'Alabama' => 'AL',
+							'Arkansas' => 'AR',
+							'Arizona' => 'AZ',
+							'California' => 'CA',
+							'Colorado' => 'CO',
+							'Connecticut' => 'CT',
+							'District of Columbia' => 'DC',
+							'Delaware' => 'DE',
+							'Florida' => 'FL',
+							'Georgia' => 'GA',
+							'Hawaii' => 'HI',
+							'Iowa' => 'IA',
+							'Idaho' => 'ID',
+							'Illinois' => 'IL',
+							'Indiana' => 'IN',
+							'Kansas' => 'KS',
+							'Kentucky' => 'KY',
+							'Louisiana' => 'LA',
+							'Massachusetts' => 'MA',
+							'Maryland' => 'MD',
+							'Maine' => 'ME',
+							'Michigan' => 'MI',
+							'Minnesota' => 'MN',
+							'Missouri' => 'MO',
+							'Mississippi' => 'MS',
+							'Montana' => 'MT',
+							'North Carolina' => 'NC',
+							'North Dakota' => 'ND',
+							'Nebraska' => 'NE',
+							'New Hampshire' => 'NH',
+							'New Jersey' => 'NJ',
+							'New Mexico' => 'NM',
+							'New York' => 'NY',
+							'Nevada' => 'NV',
+							'Ohio' => 'OH',
+							'Oklahoma' => 'OK',
+							'Oregon' => 'OR',
+							'Pennsylvania' => 'PA',
+							'Puerto Rico' => 'PR',
+							'Rhode Island' => 'RI',
+							'South Carolina' => 'SC',
+							'South Dakota' => 'SD',
+							'Tennessee' => 'TN',
+							'Texas' => 'TX',
+							'Utah' => 'UT',
+							'Virginia' => 'VA',
+							'Vermont' => 'VT',
+							'Washington' => 'WA',
+							'Wisconsin' => 'WI',
+							'West Virginia' => 'WV',
+							'Wyoming' => 'WY'
+							})%><br>
+							Zipcode<br>
+							<input type="text" id="card_zip">
+					</div>
+					<br>
+					<%= submit_tag("Purchase Deal", :class => 'purchaseButton', :onclick=> 'confirmPurchase();return false;')%>
+					</form>
+				</div>
+				
+			</div>
+		</div>
+		
+	</div>
+</div>
+<!-- LoginPage -->
+<div data-role="page" id="LoginPage" data-backbtn="false">
+	<%= @heading.html_safe %>
+	<div data-role="content">
+		<input type="hidden" id="login_purchase" value="no">
+		<h2 style="margin:0 0 5px 0;">Login</h2>
+		Username:<br>
+		<input type="text" id="login_username"><br>
+		Password:<br>
+		<input type="password" id="login_password"><br>
+		<input type="submit" value="Login" onclick="tryToLogin()"><br>
+		<h2 style="margin:0px 0 5px 0;">Register</h2>
+		First Name:<br>
+		<input type="text" id="register_first_name"><br>
+		Last Name:<br>
+		<input type="text" id="register_last_name"><br>
+		Email (Username):<br>
+		<input type="text" id="register_email"><br>
+		Password:<br>
+		<input type="password" id="register_password"><br>
+		Verify Password:<br>
+		<input type="password" id="register_password_verify"><br>
+		<input type="submit" value="Create Account" onclick="registerAccount()"><br>
+	</div>
+</div>

@@ -1,0 +1,125 @@
+<!-- ViewDealPage -->
+<div data-role="page" id="ViewDealPage">
+	<%= @heading.html_safe %>
+	<div data-role="content">	
+		<div style="margin:-15px;">
+			<div id="dealHero" style="background-image:url('/images/1CD1_hero_grille_one.bmp');">
+					<div id="dealHeadingTitle"></div>
+					<h1><%= @deal.headline %></h1>
+					<a href="/purchaseDeal/<%= @deal.id %>" style="text-decoration:none;"><div id="buyNowHero">Purchase This Deal</div></a>
+				</div>
+				<div id="dealNav">
+					<div id="dealDescription" class="dealNavButton on" onclick="changeDealInfo('dealDescription')">Deal Information</div>
+					<div id="dealFinePrint" class="dealNavButton" onclick="changeDealInfo('dealFinePrint')">Fine Print</div>
+					<div id="dealMapsInfo" class="dealNavButton" onclick="changeDealInfo('dealMapsInfo')">Locations & Maps</div>
+					<input type="hidden" value="<%= @deal.id %>" id="paramID">
+				</div>
+				<div id="innerDealWrapper">
+					<div id="dealDescriptionSection">
+
+						<%= @deal.description.html_safe %>
+					</div>
+					<div id="dealFinePrintSection" style="display:none;">
+						<%= @deal.fine_print.html_safe %>
+					</div>
+				</div>
+				<div id="dealMapsInfoSection" style="display:none;">
+						<script type="text/javascript">
+							function initialize(lat, lng) {
+								
+							    var myLatlng = new google.maps.LatLng(lat, lng);
+							    var point = new google.maps.LatLng(lat, lng);
+								var myOptions = {
+									zoom: 14,
+								   	center: new google.maps.LatLng(lat, lng),
+								   	mapTypeId: google.maps.MapTypeId.ROADMAP
+								}
+								var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+								 
+								var image = new google.maps.MarkerImage(
+								  	'/assets/maplogo.png',
+								  	new google.maps.Size(50,50),
+								  	new google.maps.Point(0,0),
+								  	new google.maps.Point(25,50)
+								);
+
+								var shape = {
+								  	coord: [28,5,29,6,30,7,32,8,34,9,35,10,36,11,36,12,34,13,38,14,39,15,39,16,40,17,40,18,39,19,39,20,48,21,48,22,48,23,44,24,42,25,41,26,38,27,38,28,38,29,38,30,38,31,37,32,37,33,37,34,36,35,36,36,35,37,34,38,33,39,32,40,31,41,30,42,28,43,24,44,19,44,9,43,8,42,7,41,7,40,7,39,6,38,5,37,4,36,3,35,4,34,3,33,3,32,3,31,3,30,3,29,3,28,2,27,2,26,2,25,2,24,4,23,3,22,2,21,2,20,3,19,4,18,4,17,4,16,4,15,6,14,6,13,7,12,7,11,8,10,10,9,12,8,13,7,16,6,16,5,28,5],
+								  	type: 'poly'
+								};
+
+								var marker = new google.maps.Marker({
+								  	draggable: false,
+								  	raiseOnDrag: false,
+								  	icon: image,
+								  	shape: shape,
+								  	map: map,
+								  	position: myLatlng
+								});
+
+								var contentString = '<div style="color:#000000;"><div id="siteNotice"></div><div id="bodyContent"><p><center><h2 style="margin:0 0 5px 0;">Northdale</h2> <strong>Todays Hours:</strong><br>  to </center></p></div></div>';
+
+								var infowindow = new google.maps.InfoWindow({
+								    content: contentString
+								});
+
+								google.maps.event.addListener(marker, 'click', function() {
+								  infowindow.open(map,marker);
+								});
+								google.maps.event.trigger(map, 'resize');
+							 }
+						</script>
+
+							<div id="locationBlockWrapper">
+								<div id="locationBlockInfo">
+									<strong>Northdale</strong><br>
+									888 N Dale Mabry<br>Tampa, FL 33625<br>
+									<strong>P:</strong>813-555-6666<br><br>
+
+									<strong>Hours of Operation</strong>
+									<table style="width:100%;font-size:13px;">
+										<tr>
+											<td><u>Sunday</u></td>
+											<td>  -  </td>
+										</tr>
+										<tr>
+											<td><u>Monday</u></td>
+											<td>  -  </td>
+										</tr>
+										<tr>
+											<td><u>Tuesday</u></td>
+											<td>  -  </td>
+										</tr>
+										<tr>
+											<td><u>Wednesday</u></td>
+											<td>  -  </td>
+										</tr>
+										<tr>
+											<td><u>Thursday</u></td>
+											<td>  -  </td>
+										</tr>
+										<tr>
+											<td><u>Friday</u></td>
+											<td>  -  </td>
+										</tr>
+										<tr>
+											<td><u>Saturday</u></td>
+											<td>  -  </td>
+										</tr>
+									</table>
+
+									</table>
+
+								</div>
+								<div id="locationBlockMap">
+									<div id="map_canvas" style="width:400px;height:320px;margin:10px 20px 10px 0;border:2px solid #ccc;" align="left"></div>
+								</div>
+
+							</div>
+
+						
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

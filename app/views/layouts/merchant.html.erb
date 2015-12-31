@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<%= stylesheet_link_tag :merchant %>
+		
+		<script type="text/javascript" charset="utf-8">
+			
+			function changeDeals(){
+				
+				window.location = '/merchant?deal_id='+document.querySelector('#deal_id').value;
+			}
+			
+		</script>
+		
+	</head>
+	<body onload="loadMerch()">
+		<div style="width:1000px;text-align:right;margin:10px auto 0 auto;"><a href="/nolayout/logoff_merchant">Log Out</a></div>
+		<div id="wrapper">
+			<%= yield %>
+		</div>
+	</body>
+</html>

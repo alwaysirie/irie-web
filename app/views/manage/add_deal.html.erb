@@ -1,0 +1,111 @@
+<div id="dealHeader">
+	New Deal For <%= @company.name %>
+</div><br>
+<div id="dealInfoWrapper" class="paddedBox">
+	<%= form_tag(:action => 'add_deal') do %>
+		<div id="manageFormBox">
+			<h3>Information</h3>
+			<div class="manageFormTitle">
+				Name:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:deal, :name ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Headline:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:deal, :headline ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Max Purchases: (0 = unlimited)
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:deal, :max_purchases ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Status:
+			</div>
+			<div class="manageFormField">
+				<select name="deal[status]" id="deal_status">
+				  <option value="pending">Pending</option>
+				  <option value="active">Active</option>
+				  <option value="featured">Featured</option>
+				</select>
+			</div>
+			<div class="manageFormTitle">
+				Location Area:
+			</div>
+			<div class="manageFormField">
+				<select name="deal[area_id]" id="deal_area_id">
+				  <option value="">Select Area</option>
+				  <% for a in Area.active() %>
+				  	<option value="<%= a.id %>"><%= a.name %></option>
+				  <% end %>
+				</select>
+			</div>
+			<div class="manageFormTitle">
+				Start Date:
+			</div>
+			<div class="manageFormField">
+				<%= date_select(:start, :date) -%>
+			</div>
+			<div class="manageFormTitle">
+				End Date:
+			</div>
+			<div class="manageFormField">
+				<%= date_select(:end, :date) -%>
+			</div>
+			<div class="manageFormTitle">
+				summary:
+			</div>
+			<div class="manageFormField">
+				<%= text_area(:deal, :summary, :class => 'inputWide' ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Description:
+			</div>
+			<div class="manageFormField">
+				<%= text_area(:deal, :description, :class => 'inputWide' ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Fine Print:
+			</div>
+			<div class="manageFormField">
+				<%= text_area(:deal, :fine_print, :class => 'inputWide' ) -%>
+			</div>
+		</div>
+		<div class="lineSeperator"></div>
+		<div id="manageFormBox">
+			<h3>Pricing</h3>
+			<div class="manageFormTitle">
+				Cost:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:deal, :cost ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Retail Value:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:deal, :retail ) -%>
+			</div>
+		</div>
+		<div class="lineSeperator"></div>
+		<div id="companyDetailsWide">
+			<h3>Valid Locations</h3>
+			<% for l in @company.store_locations %>
+				<div id="<%= l.id %>" class="locationDetails smallText" onclick="addDealSelectLocation('<%= l.id %>')">
+					<strong><%= l.name %></strong><br>
+					<%= l.full_address.titleize.html_safe %><br><br>
+					Phone: <%= number_to_phone l.phone %>
+				</div>
+			<% end %>
+		</div>
+		<div id="hiddenValues" style="display:none;"></div>
+		<input type="hidden" value="" id="selectedlocations" name="selectedlocations">
+		<div id="submitButtonBox">
+			<%= submit_tag('Save', :class => 'button big green')%>
+		</div>
+	<% end %>
+</div>

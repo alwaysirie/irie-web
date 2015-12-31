@@ -1,0 +1,180 @@
+<meta property="og:title" content="<%= @deal.headline %>" />
+<meta property="og:type" content="activity" />
+<meta property="og:url" content="https://www.nytlife.com/web/deal/2CD1" />
+<meta property="og:image" content="https://www.nytlife.com/images/<%= @deal.hero %>" />
+<meta property="og:site_name" content="NytLife" />
+<meta property="fb:admins" content="100000383584291" />
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=305597039474548";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="fb-like" data-href="https://www.nytlife.com/web/deal/<%= @deal.id %>" data-send="true" data-width="450" data-show-faces="true" data-font="trebuchet ms"></div><br><br>
+<div id="dealPageInfoWrapper">
+	<div id="dealHero" style="background-image:url('/images/<%= @deal.hero %>');">
+		<div id="dealHeadingTitle">
+		</div>
+		<h1><%= @deal.headline %></h1>
+		<a href="/purchaseDeal/<%= @deal.id %>" style="text-decoration:none;"><div id="buyNowHero">Purchase This Deal</div></a>
+	</div>
+	<div id="dealNav">
+		<div id="dealDescription" class="dealNavButton on" onclick="changeDealInfo('dealDescription')">Deal Information</div>
+		<div id="dealFinePrint" class="dealNavButton" onclick="changeDealInfo('dealFinePrint')">The Fine Print</div>
+		<div id="dealMapsInfo" class="dealNavButton" onclick="changeDealInfo('dealMapsInfo')">Locations & Directions</div>
+		<div id="dealNavButton" class="dealNavButton" onclick="changeDealInfo('dealBuyNow')">Buy Deal</div>
+		<input type="hidden" value="<%= params[:id] %>" id="paramID">
+	</div>
+	<div id="innerDealWrapper">
+		<div id="dealDescriptionSection">
+			<div style="margin:0 0 10px 0;font-size:16px;text-align:center;width:730px;">
+				<font style="color:#1077AB;"><strong>Our Price: </font><%= number_to_currency @deal.cost %></strong>
+				&nbsp;&nbsp;<font style="color:#F79422;"><strong>Deal Value: </font><%= number_to_currency @deal.retail %></strong><br><br>
+			</div>
+			<%= @deal.description.html_safe %>
+		</div>
+		<div id="dealFinePrintSection" style="display:none;">
+			<%= @deal.fine_print.html_safe %>
+		</div>
+		<div id="dealMapsInfoSection" style="display:none;">
+			<% @today = Time.now.strftime("%A").downcase %>
+		
+			
+			
+			
+			<script type="text/javascript">
+
+			  function initialize() {
+		
+				  <% for l in @locations %>
+				  			initMap('<%= l.lat %>', '<%= l.lng %>', '<%= l.id %>', '<%= l.name %>', '<%= eval("l.#{@today}_open") %><%= eval("l.#{@today}_open_ampm") %>', '<%= eval("l.#{@today}_close") %><%= eval("l.#{@today}_close_ampm") %>' );
+							
+				  <% end %>
+				  
+		
+			 	}
+				
+				function initMap(location_lat, location_lng, location_id, location_name, location_open, location_close){
+				    var myLatlng = new google.maps.LatLng(location_lat, location_lng);
+				    var point = new google.maps.LatLng(location_lat, location_lng);
+					  var myOptions = {
+					    zoom: 14,
+					    center: new google.maps.LatLng(location_lat, location_lng),
+					    mapTypeId: google.maps.MapTypeId.ROADMAP
+					  }
+					  var map = new google.maps.Map(document.getElementById("map_canvas"+location_id), myOptions);
+
+
+					var image = new google.maps.MarkerImage(
+					  '/assets/maplogo.png',
+					  new google.maps.Size(50,50),
+					  new google.maps.Point(0,0),
+					  new google.maps.Point(25,50)
+					);
+
+					var shadow = new google.maps.MarkerImage(
+					  'https://naa_website.s3.amazonaws.com/images/asset_images/shadow.png',
+					  new google.maps.Size(78,50),
+					  new google.maps.Point(0,0),
+					  new google.maps.Point(25,50)
+					);
+
+					var shape = {
+					  coord: [28,5,29,6,30,7,32,8,34,9,35,10,36,11,36,12,34,13,38,14,39,15,39,16,40,17,40,18,39,19,39,20,48,21,48,22,48,23,44,24,42,25,41,26,38,27,38,28,38,29,38,30,38,31,37,32,37,33,37,34,36,35,36,36,35,37,34,38,33,39,32,40,31,41,30,42,28,43,24,44,19,44,9,43,8,42,7,41,7,40,7,39,6,38,5,37,4,36,3,35,4,34,3,33,3,32,3,31,3,30,3,29,3,28,2,27,2,26,2,25,2,24,4,23,3,22,2,21,2,20,3,19,4,18,4,17,4,16,4,15,6,14,6,13,7,12,7,11,8,10,10,9,12,8,13,7,16,6,16,5,28,5],
+					  type: 'poly'
+					};
+
+					var marker = new google.maps.Marker({
+					  draggable: false,
+					  raiseOnDrag: false,
+					  icon: image,
+					  shadow: shadow,
+					  shape: shape,
+					  map: map,
+					  position: myLatlng
+					});
+
+					var contentString = '<div style="color:#000000;">'+
+					    '<div id="siteNotice">'+
+					    '</div>'+
+					    '<div id="bodyContent">'+
+					    '<p><center><h2 style="margin:0 0 5px 0;">' + location_name + '</h2> <strong>Todays Hours:</strong><br>' + location_open + ' to ' + location_close + '</center>' +
+					    '</p>'+
+					    '</div>'+
+					    '</div>';
+
+					var infowindow = new google.maps.InfoWindow({
+					    content: contentString
+					});
+
+					google.maps.event.addListener(marker, 'click', function() {
+					  infowindow.open(map,marker);
+					});
+				}
+		
+			</script>
+			
+			
+			
+			
+			<% for l in @locations %>
+			
+				
+
+				<% if @deal.locations.include?(l.id.to_s) %>
+					<div id="locationBlockWrapper">
+						<div id="locationBlockInfo">
+							<strong><%= l.name %></strong><br>
+							<%= l.full_address.html_safe %><br>
+							<strong>P:</strong><%= number_to_phone l.phone %><br><br>
+							
+							<strong>Hours of Operation</strong>
+							<table style="width:100%;font-size:13px;">
+								<tr>
+									<td><u>Sunday</u></td>
+									<td><%= l.sunday_open %> <%= l.sunday_open_ampm %> - <%= l.sunday_close %> <%= l.sunday_close_ampm %></td>
+								</tr>
+								<tr>
+									<td><u>Monday</u></td>
+									<td><%= l.monday_open %> <%= l.monday_open_ampm %> - <%= l.monday_close %> <%= l.monday_close_ampm %></td>
+								</tr>
+								<tr>
+									<td><u>Tuesday</u></td>
+									<td><%= l.tuesday_open %> <%= l.tuesday_open_ampm %> - <%= l.tuesday_close %> <%= l.tuesday_close_ampm %></td>
+								</tr>
+								<tr>
+									<td><u>Wednesday</u></td>
+									<td><%= l.wednesday_open %> <%= l.wednesday_open_ampm %> - <%= l.wednesday_close %> <%= l.wednesday_close_ampm %></td>
+								</tr>
+								<tr>
+									<td><u>Thursday</u></td>
+									<td><%= l.thursday_open %> <%= l.thursday_open_ampm %> - <%= l.thursday_close %> <%= l.thursday_close_ampm %></td>
+								</tr>
+								<tr>
+									<td><u>Friday</u></td>
+									<td><%= l.friday_open %> <%= l.friday_open_ampm %> - <%= l.friday_close %> <%= l.friday_close_ampm %></td>
+								</tr>
+								<tr>
+									<td><u>Saturday</u></td>
+									<td><%= l.saturday_open %> <%= l.saturday_open_ampm %> - <%= l.saturday_close %> <%= l.saturday_close_ampm %></td>
+								</tr>
+							</table>
+								
+							</table>
+							
+						</div>
+						<div id="locationBlockMap">
+							<div id="map_canvas<%= l.id %>" style="width:400px;height:320px;margin:10px 20px 10px 0;border:2px solid #ccc;" align="left"></div>
+						</div>
+						
+					</div>
+					
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>

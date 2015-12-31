@@ -1,0 +1,31 @@
+<div id="dealHeader">
+	Credit Card
+</div><a href="/editCreditCard/<%= @cc.id %>" class="button" style="float:right;margin:0 2px 8px 0;">Edit Credit Card</a><br>
+<div id="dealInfoWrapper" class="paddedBox">
+		<table class="userInfoTable">
+			<tr>
+				<td><strong>Cardholder Name</strong><br><%= @cc.name %></td>
+				<td><strong>Card Number</strong><br>****-****-****-<%= @cc.last_four %></td>
+			</tr>
+			<tr>
+				<td><strong>EXP Date</strong><br><%= @cc.exp_date %></td>
+				<td><strong>EXP Date</strong><br><%= @cc.cvv %></td>
+			</tr>
+			<tr>
+				<td colspan="2"><strong>Address</strong><br><%= @cc.address %></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div style="float:left;width:150px;">
+						<strong>City</strong><br><%= @cc.city %>
+					</div>
+					<div style="float:left;width:150px;">
+						<strong>State</strong><br><%= @cc.state %>
+					</div>
+					<div style="float:left;width:150px;">
+						<strong>Zipcode</strong><br><%= @cc.zip %>
+					</div>
+				</td>
+			</tr>
+		</table>
+</div>

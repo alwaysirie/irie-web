@@ -1,0 +1,78 @@
+<div id="dealHeader">
+	Login / Register
+</div><br>
+<div id="dealInfoWrapper" style="padding:0px 20px 20px 20px;">
+	<% if flash[:error] != nil %>
+		<div id="error">
+			<%= flash[:error] %>
+		</div>
+	<% end %>
+	<div id="purshaseAccountSelectWrapper">
+		<div id="purshaseAccountSelect">
+			<h2>I Have An Account</h2>
+			Already have an account? Login below before you purchase.<br><br>
+			<%= form_tag(:action => 'login') do%>
+			<div style="purchaseFormWrapper">
+				<div id="inputTitle">
+					Username:
+				</div>
+				<div id="inputTitle">
+					<%= text_field(:user, :email) -%>
+				</div>
+				<div id="inputTitle">
+					Password:
+				</div>
+				<div id="inputTitle">
+					<%= password_field(:user, :password) -%>
+				</div>
+				<%= submit_tag("Login", :class => 'loginBox')%>
+			</div>
+			<% end %><br><br><br>
+			<a href="/web/reset_password">Reset Password</a>
+		</div>
+		<div id="purshaseAccountSelect" style="border-left:2px solid #d1d1d1;">
+			<%= form_tag(:action => 'register', :id => params[:id], :deal_id => params[:id]) do %>
+				<h2>I Do Not Have An Account</h2>
+				Don't have an account? No worries, just enter your information below and we'll make you one.<br><br>
+
+				<div style="purchaseFormWrapper">
+					<div id="inputTitle">
+						First Name:
+					</div>
+					<div id="inputTitle">
+						<%= text_field(:customer, :first_name) -%>
+					</div>
+					<div id="inputTitle">
+						Last Name:
+					</div>
+					<div id="inputTitle">
+						<%= text_field(:customer, :last_name) -%>
+					</div>
+					<div id="inputTitle">
+						Email:
+					</div>
+					<div id="inputTitle">
+						<%= text_field(:customer, :email) -%>
+					</div>
+					<div id="inputTitle">
+						New Password:
+					</div>
+					<div id="inputTitle">
+						<%= password_field(:customer, :new_password) -%>
+					</div>
+					<div id="inputTitle">
+						Password Again:
+					</div>
+					<div id="inputTitle">
+						<%= password_field(:customer, :new_password_verify) -%>
+					</div>
+					<div id="inputTitle" style="text-align:right;">
+						<%= submit_tag("Register", :class => 'loginBox')%>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% end %>
+	</div>
+
+</div>	

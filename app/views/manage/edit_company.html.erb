@@ -1,0 +1,278 @@
+<div id="dealHeader">
+	Editing <%= @company.name %>
+</div><br>
+<div id="dealInfoWrapper" class="paddedBox">
+	<%= form_tag(:action => 'edit_company') do %>
+		<div id="manageFormBox">
+			<h3>Company Information</h3>
+			<div class="manageFormTitle">
+				Name:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:company, :name ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Phone Number:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:company, :phone ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Website:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:company, :url ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Username:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:company, :username ) -%>
+			</div>
+			<div class="manageFormTitle">
+				New Password:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:new, :password ) -%>
+			</div>
+		</div>
+		<h3>Locations</h3>
+		<% for s in @company.store_locations %>
+			<div id="manageFormBox" style="background-color:#<%= cycle('ffffff', 'eeeeee')%>;">
+				<div class="manageFormHeading">
+					Location <%= s.name %> (<a href="/manage/deleteCompanyLocation?id=<%= @company.id %>&store_id=<%= s.id %>">Delete Location</a>)
+				</div>
+				<div class="manageFormTitle">
+					Name:
+				</div>
+				<div class="manageFormField">
+					<input name="<%= s.id %>[name]" id="<%= s.id %>_name" value="<%= s.name %>" />
+				</div>
+				<div class="manageFormTitle">
+					Address:
+				</div>
+				<div class="manageFormField">
+					<input name="<%= s.id %>[address]" id="<%= s.id %>_address" value="<%= s.address %>" />
+				</div>
+				<div class="manageFormTitle">
+					City:
+				</div>
+				<div class="manageFormField">
+					<input name="<%= s.id %>[city]" id="<%= s.id %>_city" value="<%= s.city %>" />
+				</div>
+				<div class="manageFormTitle">
+					State:
+				</div>
+				<div class="manageFormField">
+					<input name="<%= s.id %>[state]" id="<%= s.id %>_state" value="<%= s.state %>" />
+				</div>
+				<div class="manageFormTitle">
+					Zipcode:
+				</div>
+				<div class="manageFormField">
+					<input name="<%= s.id %>[zip]" id="<%= s.id %>_zip" value="<%= s.zip %>" />
+				</div>
+				<div class="manageFormTitle">
+					Phone:
+				</div>
+				<div class="manageFormField">
+					<input name="<%= s.id %>[phone]" id="<%= s.id %>_phone" value="<%= s.phone %>" />
+				</div>
+				<br><br>
+				<div style="width:100%;display:inline-block;">
+				<strong>Hours of Operation</strong><br>
+				<table class="hoursTable">
+					<!-- Sunday -->
+					<tr>
+						<td class="dayName">
+							<strong>Sunday:</strong>
+						</td>
+						<td class="openClose">
+							open <input name="<%= s.id %>[sunday_open]" id="<%= s.id %>_sunday_open" value="<%= s.sunday_open %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[sunday_open_ampm]" id="<%= s.id %>_sunday_open_ampm">
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
+							</select>
+						</td>
+						<td class="openClose">
+							close <input name="<%= s.id %>[sunday_close]" id="<%= s.id %>_sunday_close" value="<%= s.sunday_close %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[sunday_close_ampm]" id="<%= s.id %>_sunday_close_ampm">
+								<option value="AM" <% if s.sunday_close_ampm == 'AM'%>selected="selected"<% end %>>AM</option>
+								<option value="PM" <% if s.sunday_close_ampm == 'PM'%>selected="selected"<% end %>>PM</option>
+							</select>
+						</td>
+					</tr>
+					<!-- Monday -->
+					<tr>
+						<td class="dayName">
+							<strong>Monday:</strong>
+						</td>
+						<td class="openClose">
+							open <input name="<%= s.id %>[monday_open]" id="<%= s.id %>_monday_open" value="<%= s.monday_open %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[monday_open_ampm]" id="<%= s.id %>_monday_open_ampm">
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
+							</select>
+						</td>
+						<td class="openClose">
+							close <input name="<%= s.id %>[monday_close]" id="<%= s.id %>_monday_close" value="<%= s.monday_close %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[monday_close_ampm]" id="<%= s.id %>_monday_close_ampm">
+								<option value="AM" <% if s.monday_close_ampm == 'AM'%>selected="selected"<% end %>>AM</option>
+								<option value="PM" <% if s.monday_close_ampm == 'PM'%>selected="selected"<% end %>>PM</option>
+							</select>
+						</td>
+					</tr>
+					<!-- Tuesday -->
+					<tr>
+						<td class="dayName">
+							<strong>Tuesday:</strong>
+						</td>
+						<td class="openClose">
+							open <input name="<%= s.id %>[tuesday_open]" id="<%= s.id %>_tuesday_open" value="<%= s.tuesday_open %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[tuesday_open_ampm]" id="<%= s.id %>_tuesday_open_ampm">
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
+							</select>
+						</td>
+						<td class="openClose">
+							close <input name="<%= s.id %>[tuesday_close]" id="<%= s.id %>_tuesday_close" value="<%= s.tuesday_close %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[tuesday_close_ampm]" id="<%= s.id %>_tuesday_close_ampm">
+								<option value="AM" <% if s.tuesday_close_ampm == 'AM'%>selected="selected"<% end %>>AM</option>
+								<option value="PM" <% if s.tuesday_close_ampm == 'PM'%>selected="selected"<% end %>>PM</option>
+							</select>
+						</td>
+					</tr>
+					<!-- Wednesday -->
+					<tr>
+						<td class="dayName">
+							<strong>Wednesday:</strong>
+						</td>
+						<td class="openClose">
+							open <input name="<%= s.id %>[wednesday_open]" id="<%= s.id %>_wednesday_open" value="<%= s.wednesday_open %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[wednesday_open_ampm]" id="<%= s.id %>_wednesday_open_ampm">
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
+							</select>
+						</td>
+						<td class="openClose">
+							close <input name="<%= s.id %>[wednesday_close]" id="<%= s.id %>_wednesday_close" value="<%= s.wednesday_close %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[wednesday_close_ampm]" id="<%= s.id %>_wednesday_close_ampm">
+								<option value="AM" <% if s.wednesday_close_ampm == 'AM'%>selected="selected"<% end %>>AM</option>
+								<option value="PM" <% if s.wednesday_close_ampm == 'PM'%>selected="selected"<% end %>>PM</option>
+							</select>
+						</td>
+					</tr>
+					
+					<!-- Thursday -->
+					<tr>
+						<td class="dayName">
+							<strong>Thursday:</strong>
+						</td>
+						<td class="openClose">
+							open <input name="<%= s.id %>[thursday_open]" id="<%= s.id %>_thursday_open" value="<%= s.thursday_open %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[thursday_open_ampm]" id="<%= s.id %>_thursday_open_ampm">
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
+							</select>
+							
+						</td>
+						<td class="openClose">
+							close <input name="<%= s.id %>[thursday_close]" id="<%= s.id %>_thursday_close" value="<%= s.thursday_close %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[friday_open_ampm]" id="<%= s.id %>_friday_open_ampm">
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
+							</select>
+							
+						</td>
+					</tr>
+					
+					
+
+					<!-- Friday -->
+					<tr>
+						<td class="dayName">
+							<strong>Friday:</strong>
+						</td>
+						<td class="openClose">
+							open <input name="<%= s.id %>[friday_open]" id="<%= s.id %>_friday_open" value="<%= s.friday_open %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[friday_open_ampm]" id="<%= s.id %>_friday_open_ampm">
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
+							</select>
+						</td>
+						<td class="openClose">
+							close <input name="<%= s.id %>[friday_close]" id="<%= s.id %>_friday_close" value="<%= s.friday_close %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[friday_close_ampm]" id="<%= s.id %>_friday_close_ampm">
+								<option value="AM" <% if s.friday_close_ampm == 'AM'%>selected="selected"<% end %>>AM</option>
+								<option value="PM" <% if s.friday_close_ampm == 'PM'%>selected="selected"<% end %>>PM</option>
+							</select>
+						</td>
+					</tr>
+				
+					<!-- Saturday -->
+					
+					<tr>
+						<td class="dayName">
+							<strong>Saturday:</strong>
+						</td>
+						<td class="openClose">
+							open <input name="<%= s.id %>[saturday_open]" id="<%= s.id %>_saturday_open" value="<%= s.saturday_open %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[saturday_open_ampm]" id="<%= s.id %>_saturday_open_ampm">
+								<option value="AM">AM</option>
+								<option value="PM">PM</option>
+							</select>
+						</td>
+						<td class="openClose">
+							close <input name="<%= s.id %>[saturday_close]" id="<%= s.id %>_saturday_close" value="<%= s.saturday_close %>" />
+						</td>
+						<td class="amPm">
+							<select name="<%= s.id %>[saturday_close_ampm]" id="<%= s.id %>_saturday_close_ampm">
+								<option value="AM" <% if s.saturday_close_ampm == 'AM'%>selected="selected"<% end %>>AM</option>
+								<option value="PM" <% if s.saturday_close_ampm == 'PM'%>selected="selected"<% end %>>PM</option>
+							</select>
+							
+						</td>
+					</tr>
+				</table>
+				</div>
+			</div>
+		<% end %>
+		
+		
+		<div id="locations">
+
+		</div>
+		<input type="hidden" value="<%= @company.store_locations.count %>" id="numberOfCurrentLocations" name="numberOfCurrentLocations">
+		<input type="hidden" value="0" id="numberOfLocations" name="numberOfLocations">
+		<input type="button" value="Add Location" onclick="addLocationEditCompany()" class="button icon add" style="margin-top:10px;">
+		<div id="submitButtonBox">
+			<%= submit_tag('Save', :class => 'button big green')%>
+		</div>
+		<% end %>
+</div>

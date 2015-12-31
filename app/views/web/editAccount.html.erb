@@ -1,0 +1,47 @@
+<div id="dealHeader">
+	<%= @customer.full_name %>
+</div><br>
+<%= form_tag(:action => 'editAccount') do %>
+<div id="dealInfoWrapper" class="paddedBox">
+	<div style="float:left;display:inline-block;width:480px;">
+		<table class="userInfoTable">
+			<tr>
+				<td><strong>First Name</strong><br><%= text_field(:customer, :first_name) %></td>
+				<td><strong>Last Name</strong><br><%= text_field(:customer, :last_name) %></td>
+			</tr>
+			<tr>
+				<td><strong>Email</strong><br><%= text_field(:customer, :email) %></td>
+				<td><strong>Phone</strong><br><%= text_field(:customer, :phone) %></td>
+			</tr>
+			<tr>
+				<td colspan="2"><strong>Address</strong><br><%= text_field(:customer, :address) %></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div style="float:left;width:150px;">
+						<strong>City</strong><br><%= text_field(:customer, :city) %>
+					</div>
+					<div style="float:left;width:150px;">
+						<strong>State</strong><br><%= text_field(:customer, :state) %>
+					</div>
+					<div style="float:left;width:150px;">
+						<strong>Zipcode</strong><br><%= text_field(:customer, :zip) %>
+					</div>
+				</td>
+			</tr>
+			<tr><td colspan="2" style="text-align:right;"><%= submit_tag("Submit Changes", :class => 'button')%></td></tr>
+		</table>
+	</div>
+	<div style="float:left;display:inline-block;">
+		<div id="pointsWrapper">
+			<div id="pointHeading">My Stats</div>
+			<div id="pointTitle">Deals Bought:</div><div id="pointValue"><%= @customer.deals_purchased %></div>
+			<div id="pointTitle">Money Saved:</div><div id="pointValue"><%= number_to_currency @customer.money_saved %></div>
+			<div id="pointHeading" style="margin-top:10px;">My Points</div>
+			<div id="pointTitle">Social Points:</div><div id="pointValue">12</div>
+			<div id="pointTitle">Deal Points:</div><div id="pointValue">300</div>
+			<div id="pointTitle">Total Points:</div><div id="pointValue">312</div>
+		</div>
+	</div>
+</div>
+<% end %>

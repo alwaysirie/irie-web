@@ -1,0 +1,41 @@
+<html>
+	<head>
+		
+	</head>
+	<body bgcolor="#e1e1e1">
+		<center>
+		<div style="width:500px;margin:20px auto;padding:20px;border:1px solid #782f59;background-color:#ffffff;display:inline-block;">
+			<img src="https://www.nytlife.com/assets/mobile_logoChris.png"><br><br>
+			Hello <%= @user.first_name %>,<br><br>
+			NytLife.com is proud to bring you the following exclusive promotions so you can party more and pay less.
+			<br><br>
+			<table style="width:100%;" cellspacing="0" cellpadding="0">
+				<% if @featured != nil %>
+					<tr style="padding:10px 0;background-color:#f1f1f1;">
+						<td width="210px;" style="padding:10px 10px 10px 0;"><img src="https://www.nytlife.com/images/<%= @featured.home %>"></td>
+						<td width="250px" style="text-align:center;padding:10px 0">
+							<b><%= @featured.company_name  %></b><br>
+							<%= @featured.headline %><br><br>
+							<em>Price:</em> <%= number_to_currency @featured.cost %>
+							<em>Value:</em> <%= number_to_currency @featured.retail %><br><br>
+							<a href="https://www.nytlife.com/deal/<%= @featured.id %>" style="text-decoration:none;background-color:#d5549f;color:#ffffff;padding:4px 20px;border-radius:3px;">Buy Now</a><br><br>
+						</td>
+					</tr>
+				<% end %>
+			<% for d in @deals %>
+			<tr style="padding:10px 0;">
+				<td width="210px;" style="border-top:1px solid #999999;padding:10px 10px 10px 0;"><img src="https://www.nytlife.com/images/<%= d.home %>"></td>
+				<td width="240px" style="text-align:center;padding:10px 0;border-top:1px solid #999999;">
+					<b><%= d.company_name  %></b><br>
+					<%= d.headline %><br><br>
+					<em>Price:</em> <%= number_to_currency d.cost %>
+					<em>Value:</em> <%= number_to_currency d.retail %><br><br>
+					<a href="https://www.nytlife.com/deal/<%= d.id %>" style="text-decoration:none;background-color:#d5549f;color:#ffffff;padding:4px 20px;border-radius:3px;">Buy Now</a><br><br>
+				</td>
+			</tr>
+			<% end %>
+			</table>
+		</div>
+		</center>
+	</body>
+</html>

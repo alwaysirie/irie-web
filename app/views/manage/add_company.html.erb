@@ -1,0 +1,273 @@
+<div id="dealHeader">
+	<h2>Add Your Company</h2>
+</div><br>
+<div id="dealInfoWrapper" class="paddedBox">
+
+	<%= form_tag(:action => 'add_company') do %>
+		<div id="manageFormBox">
+			<h3>Company Information</h3>
+			<div class="manageFormTitle">
+				Name:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:company, :name ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Phone Number:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:company, :phone ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Website:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:company, :url ) -%>
+			</div>
+			<div class="manageFormTitle">
+				Username:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:company, :username ) -%>
+			</div>
+			<div class="manageFormTitle">
+				New Password:
+			</div>
+			<div class="manageFormField">
+				<%= text_field(:company, :new_password ) -%>
+			</div>
+		</div>
+		<h3>Locations</h3>
+		<div id="manageFormBox">
+			<div class="manageFormHeading">
+				Location #1
+			</div>
+			<div class="manageFormTitle">
+				Name:
+			</div>
+			<div class="manageFormField">
+				<input name="1[name]" id="1_name" />
+			</div>
+			<div class="manageFormTitle">
+				Address:
+			</div>
+			<div class="manageFormField">
+				<input name="1[address]" id="1_address" />
+			</div>
+			<div class="manageFormTitle">
+				City:
+			</div>
+			<div class="manageFormField">
+				<input name="1[city]" id="1_city" />
+			</div>
+			<div class="manageFormTitle">
+				State:
+			</div>
+			<div class="manageFormField">
+				<input name="1[state]" id="1_state" />
+			</div>
+			<div class="manageFormTitle">
+				Zipcode:
+			</div>
+			<div class="manageFormField">
+				<input name="1[zip]" id="1_zip" />
+			</div>
+			<div class="manageFormTitle">
+				Phone:
+			</div>
+			<div class="manageFormField">
+				<input name="1[phone]" id="1_phone" />
+			</div>
+			<br><br>
+			<div style="width:100%;display:inline-block;">
+			<strong>Hours of Operation</strong><br>
+			<table class="hoursTable">
+				<!-- Sunday -->
+				<tr>
+					<td class="dayName">
+						<strong>Sunday:</strong>
+					</td>
+					<td class="openClose">
+						open <input name="1[sunday_open]" id="1_sunday_open" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[sunday_open_ampm]" id="1_sunday_open_ampm">
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</select>
+					</td>
+					<td class="openClose">
+						close <input name="1[sunday_close]" id="1_sunday_close" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[sunday_close_ampm]" id="1_sunday_close_ampm">
+							<option value="AM" >AM</option>
+							<option value="PM" >PM</option>
+						</select>
+					</td>
+				</tr>
+				<!-- Monday -->
+				<tr>
+					<td class="dayName">
+						<strong>Monday:</strong>
+					</td>
+					<td class="openClose">
+						open <input name="1[monday_open]" id="1_monday_open" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[monday_open_ampm]" id="1_monday_open_ampm">
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</select>
+					</td>
+					<td class="openClose">
+						close <input name="1[monday_close]" id="1_monday_close" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[monday_close_ampm]" id="1_monday_close_ampm">
+							<option value="AM" >AM</option>
+							<option value="PM" >PM</option>
+						</select>
+					</td>
+				</tr>
+				<!-- Tuesday -->
+				<tr>
+					<td class="dayName">
+						<strong>Tuesday:</strong>
+					</td>
+					<td class="openClose">
+						open <input name="1[tuesday_open]" id="1_tuesday_open" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[tuesday_open_ampm]" id="1_tuesday_open_ampm">
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</select>
+					</td>
+					<td class="openClose">
+						close <input name="1[tuesday_close]" id="1_tuesday_close" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[tuesday_close_ampm]" id="1_tuesday_close_ampm">
+							<option value="AM" >AM</option>
+							<option value="PM">PM</option>
+						</select>
+					</td>
+				</tr>
+				<!-- Wednesday -->
+				<tr>
+					<td class="dayName">
+						<strong>Wednesday:</strong>
+					</td>
+					<td class="openClose">
+						open <input name="1[wednesday_open]" id="1_wednesday_open" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[wednesday_open_ampm]" id="1_wednesday_open_ampm">
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</select>
+					</td>
+					<td class="openClose">
+						close <input name="1[wednesday_close]" id="1_wednesday_close" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[wednesday_close_ampm]" id="1_wednesday_close_ampm">
+							<option value="AM" >AM</option>
+							<option value="PM" >PM</option>
+						</select>
+					</td>
+				</tr>
+				
+				<!-- Thursday -->
+				<tr>
+					<td class="dayName">
+						<strong>Thursday:</strong>
+					</td>
+					<td class="openClose">
+						open <input name="1[thursday_open]" id="1_thursday_open" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[thursday_open_ampm]" id="1_thursday_open_ampm">
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</select>
+						
+					</td>
+					<td class="openClose">
+						close <input name="1[thursday_close]" id="1_thursday_close" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[friday_open_ampm]" id="1_friday_open_ampm">
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</select>
+						
+					</td>
+				</tr>
+				
+				
+
+				<!-- Friday -->
+				<tr>
+					<td class="dayName">
+						<strong>Friday:</strong>
+					</td>
+					<td class="openClose">
+						open <input name="1[friday_open]" id="1_friday_open" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[friday_open_ampm]" id="1_friday_open_ampm">
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</select>
+					</td>
+					<td class="openClose">
+						close <input name="1[friday_close]" id="1_friday_close" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[friday_close_ampm]" id="1_friday_close_ampm">
+							<option value="AM" >AM</option>
+							<option value="PM" >PM</option>
+						</select>
+					</td>
+				</tr>
+			
+				<!-- Saturday -->
+				
+				<tr>
+					<td class="dayName">
+						<strong>Saturday:</strong>
+					</td>
+					<td class="openClose">
+						open <input name="1[saturday_open]" id="1_saturday_open" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[saturday_open_ampm]" id="1_saturday_open_ampm">
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</select>
+					</td>
+					<td class="openClose">
+						close <input name="1[saturday_close]" id="1_saturday_close" value="" />
+					</td>
+					<td class="amPm">
+						<select name="1[saturday_close_ampm]" id="1_saturday_close_ampm">
+							<option value="AM" >AM</option>
+							<option value="PM" >PM</option>
+						</select>
+						
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="locations">
+
+		</div>
+		<input type="hidden" value="1" id="numberOfLocations" name="numberOfLocations">
+		<input type="button" value="Add Location" onclick="addLocation()" class="button icon add">
+		<div id="submitButtonBox" style="margin-top:30px;">
+			<%= submit_tag('Save', :class => 'button big green')%>
+		</div>
+		<% end %>
+</div>

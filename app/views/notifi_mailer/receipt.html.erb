@@ -1,0 +1,23 @@
+<html>
+	<head>
+		
+	</head>
+	<body bgcolor="#eeeeee">
+		<div style="width:500px;margin:20px auto;padding:20px;border:1px solid #782f59;background-color:#ffffff;">
+			<img src="https://www.nytlife.com/assets/mobile_logoChris.png"><br><br>
+			Hello <%= @user.first_name %>,<br><br>
+
+			This email is a confirmation and receipt for your purchase: <%= @deal.headline %><br><br>
+			
+			<strong>Purchase Details:</strong><br>
+			<em>Cost:</em> <%= @deal.cost %><br>
+			<em>Value:</em> <%= @deal.retail %><br><br>
+			
+			You can view/print your voucher here: <a href="http://www.nytlife.com/purchasedDeal/<%= @voucher.id %>">View Voucher</a><br>
+			or by logging into your account on your smartphone at <a href="http://www.nytlife.com/mobile">http://www.nytlife.com/mobile</a> <br>
+			<br>
+			Enjoy Your Nyt
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,55 @@
+<html>
+	<head>
+		
+		<style type="text/css" media="screen">
+			body{
+				margin:0;
+				background-image:url('/assets/mobileLoadingBG.gif');
+				background-repeat:repeat;
+			}
+		
+			input{
+				padding:4px;
+				width:100%;
+				font-size:24px;
+			}
+			
+			#mainWrapper{
+				margin:40px auto;
+				-webkit-box-shadow: 0px 0px 4px 4px #555;
+				box-shadow: 0px 0px 4px 4px #555;
+				background-color:#fefefe;
+				width:600px;
+				display:inline-block;
+				padding:30px;
+				border:10px solid #d5549f;
+				border-radius:20px;
+				background-image:url('/assets/mobile_chrisBg.png');
+				background-repeat:repeat;
+			}
+			
+
+		</style>
+	</head>
+	<body>
+		<center><div id="mainWrapper">
+			<img src="/assets/mobile_logoChris.png"><br><br><br>
+			<%= form_tag(:action => 'choosepass') do %>
+			<input type="hidden" name="custid" value="<%= @customer.id %>" id="custid">
+			<strong>First Name:<br></strong>
+				<%= text_field(:customer, :first_name)%><br><br>
+				
+				<strong>Last Name:<br></strong>
+				<%= text_field(:customer, :last_name)%><br><br>
+				
+				<strong>Email:<br></strong>
+				<%= text_field(:customer, :email)%><br><br>
+				
+				<strong>Password:<br></strong>
+				<%= text_field(:customer, :new_password)%><br><br>
+				
+				<%= submit_tag("Submit", :class => 'submitbutton')%>
+			<% end %>
+		</div></center>
+	</body>
+</html>
